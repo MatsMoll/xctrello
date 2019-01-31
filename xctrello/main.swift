@@ -72,10 +72,10 @@ if CommandLine.argc >= 2  {
 
     if let testFolder = lastTestCommand.run()?.replacingOccurrences(of: "\n", with: "") {
         let path = workingDir + "/DerivedData/Logs/Test/" + testFolder + "/TestSummaries.plist"
-        print("DerDat: ", ShellCommand(arguments: "-c", "ls DerivedData", launchPath: "/bin/bash").run())
-        print("Logs: ", ShellCommand(arguments: "-c", "ls DerivedData/Logs", launchPath: "/bin/bash").run())
-        print("Test: ", ShellCommand(arguments: "-c", "ls DerivedData/Logs/Test", launchPath: "/bin/bash").run())
-        print(".xresult: ", ShellCommand(arguments: "-c", "ls DerivedData/Logs/Test/\(testFolder)/", launchPath: "/bin/bash").run())
+        print("DerDat: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData", launchPath: "/bin/bash").run())
+        print("Logs: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData/Logs", launchPath: "/bin/bash").run())
+        print("Test: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData/Logs/Test", launchPath: "/bin/bash").run())
+        print(".xresult: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData/Logs/Test/\(testFolder)/", launchPath: "/bin/bash").run())
         let url = URL(fileURLWithPath: path)
         generator.generateFrom(fileAtURL: url)
     } else {
