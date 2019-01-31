@@ -1,3 +1,4 @@
 swiftc xctrello/*.swift
 mv xctrello/main xctrello/xctrello
-PATH="$PATH":$PWD/xctrello/xctrello
+eecho $PWD/xctrello/xctrello
+PATH="$PATH:$PWD/xctrello/xctrello"
