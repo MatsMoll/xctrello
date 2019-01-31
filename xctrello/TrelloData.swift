@@ -16,11 +16,21 @@ protocol URLQueryable {
 class TrelloBoard: Codable {
     let name: String
     let id: String
+
+    init(name: String, id: String) {
+        self.name = name
+        self.id = id
+    }
 }
 
 class TrelloList: Codable {
     let name: String
     let id: String
+
+    init(name: String, id: String) {
+        self.name = name
+        self.id = id
+    }
 }
 
 class TrelloCard: Codable, URLQueryable {
