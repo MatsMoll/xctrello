@@ -68,7 +68,7 @@ if CommandLine.argc >= 2  {
     let workingDir = FileManager.default.currentDirectoryPath
     let terminalFriendlyPath = workingDir.replacingOccurrences(of: " ", with: "\\ ")
 
-    let lastTestCommand = ShellCommand(arguments: "-c", "ls -rt \(terminalFriendlyPath + "/DerivedData/Logs/Test") | grep Test-Run* | tail -1", launchPath: "/bin/bash")
+    let lastTestCommand = ShellCommand(arguments: "-c", "ls -rt \(terminalFriendlyPath + "/DerivedData/Logs/Test") | grep *.xcresult | tail -1", launchPath: "/bin/bash")
 
     if let testFolder = lastTestCommand.run()?.replacingOccurrences(of: "\n", with: "") {
         let path = workingDir + "/DerivedData/Logs/Test/" + testFolder + "/TestSummaries.plist"
