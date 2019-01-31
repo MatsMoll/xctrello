@@ -13,8 +13,8 @@ class TrelloAPI {
     typealias PathEndpoint = String
 
     enum Result<T> {
-        case success(_ data: T)
-        case failure(_ error: Error)
+        case success(T)
+        case failure(Error)
     }
 
     enum Errors: Error {
