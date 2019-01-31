@@ -34,7 +34,12 @@ class TrelloTestGenerator {
             exit(1)
         }
 
+        guard let listID = listID else {
+            print("Missing listID, when generating data")
+            exit(1)
+        }
         evaluateTest(data: summaries)
+        api.archiveAll(for: listID)
         uploadCards()
     }
 

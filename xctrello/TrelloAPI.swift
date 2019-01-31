@@ -31,6 +31,10 @@ class TrelloAPI {
             return Endpoints.board + "/\(boardID)/lists"
         }
 
+        static func archiveList(with id: String) -> String {
+            return list(with: id) + "/archiveAllCards"
+        }
+
         static func cards(boardID: String) -> String {
             return Endpoints.board + "/\(boardID)/cards"
         }
@@ -58,6 +62,18 @@ class TrelloAPI {
         self.key = key
     }
 
+
+    func archiveAll(for boardID: String) {
+        let semaphor = DispatchSemaphore(value: 0)
+        upload(to: Endpoints.archiveList(with: boardID)) { (result) in
+            switch result {
+            case .success(_): break
+            case .failure(let error): print("Error Archiving List:", error)
+            }
+            semaphor.signal()
+        }
+        semaphor.wait()
+    }
 
     func upload(_ card: TrelloCard) {
         let semaphor = DispatchSemaphore(value: 0)
@@ -91,7 +107,7 @@ class TrelloAPI {
     }
 
 
-    private func upload(to path: PathEndpoint, with data: URLQueryable, completion: @escaping ((Result<Void>) -> Void)) {
+    private func upload(to path: PathEndpoint, with data: URLQueryable? = nil, completion: @escaping ((Result<Void>) -> Void)) {
         let session = URLSession(configuration: .default)
         let url = baseURL.appendingPathComponent(path)
         guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
@@ -101,7 +117,7 @@ class TrelloAPI {
         urlComponents.queryItems = [
             URLQueryItem(name: "key", value: key),
             URLQueryItem(name: "token", value: token),
-            ] + data.queryItems
+            ] + (data?.queryItems ?? [])
         guard let requestURL = urlComponents.url else {
             completion(.failure(Errors.unknown))
             return
