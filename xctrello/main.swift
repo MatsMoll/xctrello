@@ -76,6 +76,8 @@ if CommandLine.argc >= 2  {
         print("DerDat: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData", launchPath: "/bin/bash").run())
         print("Logs: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData/Logs", launchPath: "/bin/bash").run())
         print("Test: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData/Logs/Test", launchPath: "/bin/bash").run())
+        print(testFolder)
+        print("\(terminalFriendlyPath)/DerivedData/Logs/Test/\(testFolder)/\n")
         print(".xresult: ", ShellCommand(arguments: "-c", "ls \(terminalFriendlyPath)/DerivedData/Logs/Test/\(testFolder)/", launchPath: "/bin/bash").run())
         let url = URL(fileURLWithPath: path)
         generator.generateFrom(fileAtURL: url)
