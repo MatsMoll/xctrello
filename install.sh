@@ -1,2 +1,3 @@
-swiftc *.swift
-PATH="$PATH:$PWD/xctrello/main"
+swiftc xctrello/*.swift
+mv xctrello/main xctrello/xctrello
+PATH="$PATH":$PWD/xctrello/xctrello
